@@ -21,35 +21,41 @@
         <div class="menu-icon" onclick="openSidebar()">
           <span class="material-icons-outlined">menu</span>
         </div>
-        <div class="header-left">
-          <span class="material-icons-outlined">search</span>
+       
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search...">
+          <span class="material-icons-outlined" id="search-icon">search</span>
         </div>
+
         <div class="header-right">
-          <span class="material-icons-outlined">notifications</span>
-          <span class="material-icons-outlined">email</span>
-          <span class="material-icons-outlined">account_circle</span>
+          <!-- Dropdown Menu -->
+          <div class="dropdown" id="dropdownMenu">
+            <button class="dropbtn" onclick="toggleDropdown(event)">
+              Product_Category
+              <span class="material-icons-outlined">arrow_drop_down</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Category 1</a>
+              <a href="#">Category 2</a>
+              <a href="#">Category 3</a>
+            </div>
+          </div>
         </div>
       </header>
       <!--End Header-->
 
       <!--Sidebar-->
       <aside id="sidebar">
-        <div class="sidebar-card">
-          <div class="card-sidebar">
-            <div class="card-inner-sidebar"></div>
-          </div>
-        </div>
         <div class="sidebar-title">
-          <img src="img/coffee-shop.png" height="100" width="100" />
+          <div class="sidebar-brand">
+            <img src="img/coffee-shop.png" height="100" width="100" />
+          </div>
+          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
         </div>
 
         <ul class="sidebar-list">
-          <h3>MASTER DATA</h3>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">shopping_bag</span> Products</li>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">sell</span> Promotions</li>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">settings</span> Settings</li>
           <h3>MAIN MENU</h3>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">home</span> Dashboard</li>
+          <li class="sidebar-list-item"><span class="material-icons-outlined">computer</span> Dashboard</li>
           <li class="sidebar-list-item"><span class="material-icons-outlined">groups</span> Members</li>
         </ul>
       </aside>
@@ -59,7 +65,6 @@
       <main class="main-container">
         <div class="main-title">
           <h2>DASHBOARD</h2>
-          <iframe width="600" height="334" src="https://lookerstudio.google.com/embed/reporting/c0f6dcaa-3399-441b-ab7f-8d3b660d697a/page/p_sbxb4itegd" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
         </div>
 
         <div class="main-cards">
