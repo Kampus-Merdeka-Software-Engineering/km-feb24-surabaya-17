@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center" style="color: white;"><b>SALES DATA TABLE</b></h1>
+
+    <div class="search-bar mb-4">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
+      <span class="material-icons-outlined" id="search-icon"></span>
+    </div>
+
+    <div class="table-responsive">
+      <table
+        class="table table-bordered table-hover table-striped"
+        id="tabelku" style="background-color: aliceblue;">
+        <thead>
+          <tr>
+            <th>Transaction Id</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Quantity</th>
+            <th>StoreID</th>
+            <th>Store Location</th>
+            <th>Product ID</th>
+            <th>Unit Prize</th>
+            <th>Product Category</th>
+            <th>Product Type</th>
+            <th>Product Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+      <div class="text-center" id="paginationSection">
+        <button class="btn btn-primary mr-2" id="prevBtn" disabled>Previous</button>
+        <button class="btn btn-primary" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    var jsonData; // Variable to store JSON data
+    var batchSize = 10; // Number of data to load at once
+    var currentIndex = 0; // Current index of data being displayed
+    var filteredData = []; // Variable to store filtered data
+
+    // Function to load JSON data
+    function loadData() {
+      // Load JSON data using XMLHttpRequest
+      var xhr = new XMLHttpRequest();
+      xhr.overrideMimeType("application/json");
+      xhr.open("GET", "coffeSales.json", true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // Parse JSON data
+          jsonData = JSON.parse(xhr.responseText);
+          console.log("Data loaded: ", jsonData); // Debug log
+          filteredData = jsonData; // Initialize filteredData with all data
+          // Display initial batch of data
+          displayData();
+        }
+      };
+      xhr.send(null);
+    }
+
+    // Function to display data
+    function displayData() {
+      var table = document
+        .getElementById("tabelku")
+        .getElementsByTagName("tbody")[0];
+      table.innerHTML = ''; // Clear previous data
+      for (
+        var i = currentIndex;
+        i < Math.min(currentIndex + batchSize, filteredData.length);
+        i++
+      ) {
+        var row = `<tr>
+                  <td>${filteredData[i].transaction_id}</td>
+                  <td>${filteredData[i].transaction_date}</td>
+                  <td>${filteredData[i].transaction_time}</td>
+                  <td>${filteredData[i].transaction_qty}</td>
+                  <td>${filteredData[i].store_id}</td>
+                  <td>${filteredData[i].store_location}</td>
+                  <td>${filteredData[i].product_id}</td>
+                  <td>${filteredData[i].unit_prize}</td>
+                  <td>${filteredData[i].product_category}</td>
+                  <td>${filteredData[i].product_type}</td>
+                  <td>${filteredData[i].product_detail}</td>
+                </tr>`;
+        table.innerHTML += row;
+      }
+      // Update pagination buttons
+      document.getElementById("prevBtn").disabled = currentIndex === 0;
+      document.getElementById("nextBtn").disabled = currentIndex + batchSize >= filteredData.length;
+    }
+
+    // Function to filter data based on search query
+    function filterData(query) {
+      filteredData = jsonData.filter(item =>
+        Object.values(item).some(
+          value => value.toString().toLowerCase().includes(query.toLowerCase())
+        )
+      );
+      console.log("Filtered data: ", filteredData); // Debug log
+      currentIndex = 0; // Reset index to show the first batch of filtered data
+      displayData();
+    }
+
+    // Event listener for search input
+    document.getElementById("searchInput").addEventListener("input", function () {
+      filterData(this.value);
+    });
+
+    // Event listener for Next button
+    document
+      .getElementById("nextBtn")
+      .addEventListener("click", function () {
+        currentIndex += batchSize;
+        displayData();
+      });
+
+    // Event listener for Previous button
+    document
+      .getElementById("prevBtn")
+      .addEventListener("click", function () {
+        currentIndex -= batchSize;
+        displayData();
+      });
+
+    // Call load data function when the page loads
+    window.onload = function () {
+      loadData();
+    };
+  </script>
+</body>
+</html>
