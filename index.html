@@ -6,10 +6,16 @@
     <title>Dashboard Team 17</title>
 
     <!--Montserrat Font-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!--Material Icons-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="css/style.css" />
@@ -21,9 +27,9 @@
         <div class="menu-icon" onclick="openSidebar()">
           <span class="material-icons-outlined">menu</span>
         </div>
-       
+
         <div class="search-bar">
-          <input type="text" class="search-input" placeholder="Search...">
+          <input type="text" class="search-input" placeholder="Search..." />
           <span class="material-icons-outlined" id="search-icon">search</span>
         </div>
 
@@ -35,9 +41,9 @@
               <span class="material-icons-outlined">arrow_drop_down</span>
             </button>
             <div class="dropdown-content">
-              <a href="#">Category 1</a>
-              <a href="#">Category 2</a>
-              <a href="#">Category 3</a>
+              <a href="#salesPieChart">Sales Pie Chart</a>
+              <a href="#salesTable">Sales Data Table</a>
+              <a href="#salesBarChart">Sales Bar Chart</a>
             </div>
           </div>
         </div>
@@ -50,13 +56,20 @@
           <div class="sidebar-brand">
             <img src="img/coffee-shop.png" height="100" width="100" />
           </div>
-          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+          <span class="material-icons-outlined" onclick="closeSidebar()"
+            >close</span
+          >
         </div>
 
         <ul class="sidebar-list">
           <h3>MAIN MENU</h3>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">computer</span> Dashboard</li>
-          <li class="sidebar-list-item"><span class="material-icons-outlined">groups</span> Members</li>
+          <li class="sidebar-list-item">
+            <span class="material-icons-outlined">home</span> Dashboard
+          </li>
+          <li class="sidebar-list-item">
+            <span class="material-icons-outlined">groups</span> 
+            <a href="member.html" target="_blank" draggable="true">Members</a>
+          </li>
         </ul>
       </aside>
       <!--End Sidebar-->
@@ -67,40 +80,119 @@
           <h2>DASHBOARD</h2>
         </div>
 
-        <div class="main-cards">
-          <div class="card">
-            <div class="card-inner"></div>
+        <!-- Tabel Section -->
+        <section class="table">
+          <div class="content">
+            <h2>Sales Data Table</h2>
+            <table id="salesTable">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Quantity</th>
+                  <th>Store ID</th>
+                  <th>Store Location</th>
+                  <th>Product ID</th>
+                  <th>Unit Price</th>
+                  <th>Product Category</th>
+                  <th>Product Type</th>
+                  <th>Product Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data akan diisi melalui JavaScript -->
+              </tbody>
+            </table>
+            <div class="btn-table">
+              <button id="prevButton" onclick="prevButtonClick()">
+                Previous
+              </button>
+              <button id="nextButton" onclick="nextButtonClick()">Next</button>
+            </div>
           </div>
+        </section>
 
-          <div class="card">
-            <div class="card-inner"></div>
+        <!-- Section for Bar Chart -->
+        <section class="chart">
+          <div class="content">
+            <h2>Sales Bar Chart</h2>
+            <canvas id="salesBarChart"></canvas>
           </div>
+        </section>
 
-          <div class="card">
-            <div class="card-inner"></div>
+        <!-- Section for Pie Chart -->
+        <section class="chart">
+          <div class="content">
+            <h2>Sales Pie Chart</h2>
+            <canvas id="salesPieChart"></canvas>
           </div>
+        </section>
+
+        <!-- Section for Line Chart -->
+        <section class="chart">
+          <div class="content">
+            <h2>Sales Line Chart</h2>
+            <canvas id="salesLineChart2"></canvas>
+          </div>
+        </section>
+
+        <!--kritik dan saran-->
+        
+        <section class="pesan">
+          <h2>Suggestion Box</h2>
+        <div class="kotak-pesan">
+          <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48381.42994980784!2d-74.03668965334685!3d40.721552427927335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259885419838b%3A0x2d39c2f6ed6db3c!2sLower%20Manhattan%2C%20New%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sid!4v1714751633956!5m2!1sen!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>  
+          <form method="POST" action="#" onsubmit="output()">
+            <table>
+              <tr>
+                <td>Name</td>
+                <td>:</td>
+                <td><input type="text" name="nama" id="nama"></td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td>:</td>
+                <td><input type="text" name="address" id="address"></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td><input type="text" name="email" id="email"></td>
+              </tr>
+              <tr>
+                <td>Message</td>
+                <td>:</td>
+                <td><textarea name="message" id="message" placeholder="Left your suggestion here :>"></textarea></td> </textarea>
+              </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><input class="button button1" type="submit" name="submit" value="Submit">
+                <input class="button button1" type="submit" name="submit" value="Cancel"></td>
+              </tr>
+            </table>
+          </form>
         </div>
-
-        <div class="second-cards">
-          <div class="card-2">
-            <div class="card-inner-2"></div>
+        <div class="copy-right" >
+              <footer>
+                  <p>&copy; 2024 Team 17 Surabaya. RevoU x Kampus Merdeka</p>
+              </footer>
           </div>
+      </section>
 
-          <div class="card-2">
-            <div class="card-inner-2"></div>
-          </div>
-        </div>
-
-        <div class="third-cards">
-          <div class="card-3">
-            <div class="card-inner-3"></div>
-          </div>
-        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="scripts.js"></script>
+        <script src="index.js"></script>
       </main>
       <!--End Main-->
     </div>
-
-    <!--Custom JS-->
-    <script src="js/scripts.js"></script>
   </body>
 </html>
