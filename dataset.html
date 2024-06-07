@@ -1,199 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="dataset.css" />
-  </head>
-  <body>
-    <div class="container mt-5">
-      <a href="index.html">Kembali</a>
-      <h1 class="text-center"><b>SALES DATA TABLE</b></h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="css/dataset.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <a href="index.html">Kembali</a>
+    <h1 class="text-center"><b>SALES DATA TABLE</b></h1>
 
-      <!-- Search Bar -->
-      <div class="mb-4">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="searchInput"
-            placeholder="Search..."
-          />
-          <div class="input-group-append">
-            <button class="btn btn-primary" id="searchBtn">Search</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Checkbox Filter Section -->
-      <div class="mb-4">
-        <h5>Filter by Store Location:</h5>
-        <div id="checkboxContainer" class="d-flex flex-wrap"></div>
-      </div>
-
-      <div class="table-responsive">
-        <table
-          class="table table-bordered table-hover table-striped"
-          id="tabelku"
-        >
-          <thead>
-            <tr>
-              <th>Transaction Id</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Quantity</th>
-              <th>StoreID</th>
-              <th>Store Location</th>
-              <th>Product ID</th>
-              <th>Unit Prize</th>
-              <th>Product Category</th>
-              <th>Product Type</th>
-              <th>Product Detail</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Data will be inserted here -->
-          </tbody>
-        </table>
-        <div class="text-center" id="paginationSection">
-          <button class="btn btn-primary mr-2" id="prevBtn" disabled>
-            Previous
-          </button>
-          <button class="btn btn-primary" id="nextBtn">Next</button>
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+        <div class="input-group-append">
+          <button class="btn btn-primary" id="searchBtn">Search</button>
         </div>
       </div>
     </div>
-    <script>
-      var jsonData; // Variable to store JSON data
-      var batchSize = 10; // Number of data to load at once
-      var currentIndex = 0; // Current index of data being displayed
-      var filteredData = []; // Variable to store filtered data
-      var storeLocations = []; // Variable to store unique store locations
 
-      // Function to load JSON data
-      function loadData() {
-        var xhr = new XMLHttpRequest();
-        xhr.overrideMimeType("application/json");
-        xhr.open("GET", "coffeSales.json", true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            jsonData = JSON.parse(xhr.responseText);
-            filteredData = jsonData;
-            extractStoreLocations();
-            displayData();
-          }
-        };
-        xhr.send(null);
-      }
+    <!-- Checkbox Filter Section -->
+    <div class="mb-4">
+      <h5>Filter by Store Location:</h5>
+      <div id="checkboxContainer" class="d-flex flex-wrap"></div>
+    </div>
 
-      // Function to extract unique store locations
-      function extractStoreLocations() {
-        storeLocations = [
-          ...new Set(jsonData.map((item) => item.store_location)),
-        ];
-        generateCheckboxes();
-      }
+    <!-- Dropdown Filter Section -->
+    <div class="mb-4">
+      <h5>Filter by Unit Price:</h5>
+      <div>
+        <select class="form-control" id="priceFilter">
+          <option value="">Select Price</option>
+          <option value="2">2</option>
+          <option value="2.5">2.5</option>
+          <option value="3">3</option>
+          <option value="3.5">3.5</option>
+          <option value="4">4</option>
+          <option value="4.5">4.5</option>
+        </select>
+      </div>
+    </div>
 
-      // Function to generate checkboxes for store locations
-      function generateCheckboxes() {
-        var container = document.getElementById("checkboxContainer");
-        storeLocations.forEach((location) => {
-          var checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.value = location;
-          checkbox.id = location;
-          checkbox.checked = true;
-          checkbox.addEventListener("change", filterData);
-
-          var label = document.createElement("label");
-          label.htmlFor = location;
-          label.innerText = location;
-          label.className = "mr-2";
-
-          container.appendChild(checkbox);
-          container.appendChild(label);
-        });
-      }
-
-      // Function to display data
-      function displayData() {
-        var table = document
-          .getElementById("tabelku")
-          .getElementsByTagName("tbody")[0];
-        table.innerHTML = ""; // Clear previous data
-        for (
-          var i = currentIndex;
-          i < Math.min(currentIndex + batchSize, filteredData.length);
-          i++
-        ) {
-          var row = `<tr>
-                  <td>${filteredData[i].transaction_id}</td>
-                  <td>${filteredData[i].transaction_date}</td>
-                  <td>${filteredData[i].transaction_time}</td>
-                  <td>${filteredData[i].transaction_qty}</td>
-                  <td>${filteredData[i].store_id}</td>
-                  <td>${filteredData[i].store_location}</td>
-                  <td>${filteredData[i].product_id}</td>
-                  <td>${filteredData[i].unit_prize}</td>
-                  <td>${filteredData[i].product_category}</td>
-                  <td>${filteredData[i].product_type}</td>
-                  <td>${filteredData[i].product_detail}</td>
-                </tr>`;
-          table.innerHTML += row;
-        }
-        document.getElementById("prevBtn").disabled = currentIndex === 0;
-        document.getElementById("nextBtn").disabled =
-          currentIndex + batchSize >= filteredData.length;
-      }
-
-      // Function to filter data based on selected checkboxes and search input
-      function filterData() {
-        var checkedLocations = Array.from(
-          document.querySelectorAll("#checkboxContainer input:checked")
-        ).map((checkbox) => checkbox.value);
-        var searchQuery = document
-          .getElementById("searchInput")
-          .value.toLowerCase();
-        filteredData = jsonData.filter(
-          (item) =>
-            checkedLocations.includes(item.store_location) &&
-            Object.values(item).some((value) =>
-              value.toString().toLowerCase().includes(searchQuery)
-            )
-        );
-        currentIndex = 0;
-        displayData();
-      }
-
-      // Event listener for search button
-      document
-        .getElementById("searchBtn")
-        .addEventListener("click", filterData);
-
-      // Event listener for Next button
-      document.getElementById("nextBtn").addEventListener("click", function () {
-        currentIndex += batchSize;
-        displayData();
-      });
-
-      // Event listener for Previous button
-      document.getElementById("prevBtn").addEventListener("click", function () {
-        currentIndex -= batchSize;
-        displayData();
-      });
-
-      // Call load data function when the page loads
-      window.onload = function () {
-        loadData();
-      };
-    </script>
-  </body>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped" id="tabelku">
+        <thead>
+          <tr>
+            <th>Transaction Id</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Quantity</th>
+            <th>StoreID</th>
+            <th>Store Location</th>
+            <th>Product ID</th>
+            <th>Unit Prize</th>
+            <th>Product Category</th>
+            <th>Product Type</th>
+            <th>Product Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+      <div class="text-center" id="paginationSection">
+        <button class="btn btn-primary mr-2" id="prevBtn" disabled>Previous</button>
+        <button class="btn btn-primary" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="js/table.js"></script>
+</body>
 </html>

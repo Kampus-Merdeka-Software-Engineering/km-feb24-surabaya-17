@@ -31,25 +31,31 @@
         <div class="header-right">
           <!-- Dropdown Menu -->
           <div class="dropdown" id="dropdownMenu">
-            <button class="dropbtn" onclick="toggleDropdown(event)">
+            <button
+              class="dropbtn"
+              onclick="toggleDropdown(event)"
+              style="font-weight: 500"
+            >
               Product Category
-              <span class="material-icons-outlined" style="color: black;">arrow_drop_down</span>
+              <span class="material-icons-outlined" style="color: black"
+                >arrow_drop_down</span
+              >
             </button>
             <div class="dropdown-content">
-              <a href="#salesPieChart">Sales Pie Chart</a>
-              <a href="#salesTable">Sales Data Table</a>
-              <a href="#salesBarChart">Sales Bar Chart</a>
+              <a href="#salesPieChart">SALES BASED ON LOCATION</a>
+              <a href="#salesLineChart2">DATE OF TRANSACTION PRODUCT</a>
+              <a href="#salesBarChart">PRODUCT SALES</a>
             </div>
           </div>
         </div>
       </header>
       <!--End Header-->
-
+      
       <!--Sidebar-->
       <aside id="sidebar">
         <div class="sidebar-title">
           <div class="sidebar-brand">
-            <img src="img/coffee-shop.png" height="100" width="100" />
+            <img src="img/coffee-shop.png" height="160" width="150" />
           </div>
           <span class="material-icons-outlined" onclick="closeSidebar()"
             >close</span
@@ -57,49 +63,74 @@
         </div>
 
         <ul class="sidebar-list">
-          <h3>MAIN MENU</h3>
-          <li class="sidebar-list-item">
-            <span class="material-icons-outlined">home</span> Dashboard
+          <h3><p style="color: rgb(8, 8, 8);">Main Menu</p></h3> 
+          <li class="sidebar-list-item" style="color: black;">
+            <span class="material-icons-outlined" style="color: black" >home</span> Dashboard
           </li>
-          <li class="sidebar-list-item">
-            <span class="material-icons-outlined">groups</span> 
-            <a href="member.html" target="_blank" draggable="true">Members</a>
+        <li class="sidebar-list-item">
+            <span class="material-icons-outlined" style="color: black">computer</span>
+            <a href="Dataset.html" draggable="true" style="color: black;">Dataset</a>
           </li>
-          <li>
-            <li class="sidebar-list-item">
-              <span class="material-icons-outlined">computer</span> 
-              <a href="Dataset.html" target="_blank" draggable="true">Dataset</a>
+          </li>
+          <li></li>
+          <li class="sidebar-list-item">
+            <span class="material-icons-outlined" style="color: black">group</span>
+            <a href="member.html" draggable="true"style="color: black;">Members</a>
           </li>
         </ul>
       </aside>
       <!--End Sidebar-->
-      
+
+      <main>
+        <div class="main">
+          <div class="cards">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-name">Total Product Sales</div>
+                <div class="number">214.5 K</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-name">Total Product Coffe</div>
+                <div class="number">89.3 K</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-name">Total Product Packaged Chocolate</div>
+                <div class="number">487</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Section for Bar Chart -->
         <section class="charts">
           <div class="content">
-            <h2>Sales Bar Chart</h2>
-            <canvas id="salesBarChart"></canvas>
+            <h2>PRODUCT SALES</h2>
+            <canvas id="salesBarChart" class="chart"></canvas>
           </div>
-        
 
-        <!-- Section for Pie Chart -->
-       
+          <!-- Section for Pie Chart -->
+
           <div class="content">
-            <h2>Sales Pie Chart</h2>
-            <canvas id="salesPieChart"></canvas>
+            <h2>SALES BASED ON LOCATION</h2>
+            <canvas id="salesPieChart" class="chart"></canvas>
           </div>
-       
-
-        <!-- Section for Line Chart -->
+          
+          <!-- Section for Line Chart -->
           <div class="content">
-            <h2>Sales Line Chart</h2>
-            <canvas id="salesLineChart2"></canvas>
+            <h2>DATE OF TRANSACTION PRODUCT</h2>
+            <canvas id="salesLineChart2" class="chart"></canvas>
           </div>
         </section>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="scripts.js"></script>
-        <script src="index.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/piechart.js"></script>
+        <script src="js/barchart.js"></script>
+        <script src="js/linechart.js"></script>
       </main>
       <!--End Main-->
     </div>
