@@ -55,8 +55,26 @@ a:hover {
 .table th {
   background-color: #c6b4a6;
   text-align: center;
+  cursor: pointer;
 }
 
 .table td {
   text-align: center;
+}
+
+.sort-icon {
+  display: flex;
+}
+
+.sort-icon {
+  font-size: 0.75em;
+  margin-left: 5px;
+}
+
+.sort-icon.asc::after {
+  content: "▲";
+}
+
+.sort-icon.desc::after {
+  content: "▼";
 }
