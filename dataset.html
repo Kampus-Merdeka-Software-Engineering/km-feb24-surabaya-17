@@ -34,21 +34,37 @@
       <div id="checkboxContainer" class="d-flex flex-wrap"></div>
     </div>
 
+    <!-- Dropdown Filter Section -->
+    <div class="mb-4">
+      <h5>Filter by Unit Price:</h5>
+      <div>
+        <select class="form-control" id="priceFilter">
+          <option value="">Select Price</option>
+          <option value="2">2</option>
+          <option value="2.5">2.5</option>
+          <option value="3">3</option>
+          <option value="3.5">3.5</option>
+          <option value="4">4</option>
+          <option value="4.5">4.5</option>
+        </select>
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-bordered table-hover table-striped" id="tabelku">
         <thead>
           <tr>
-            <th>Transaction Id</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Quantity</th>
-            <th>StoreID</th>
-            <th>Store Location</th>
-            <th>Product ID</th>
-            <th>Unit Prize</th>
-            <th>Product Category</th>
-            <th>Product Type</th>
-            <th>Product Detail</th>
+            <th onclick="sortTable(0)">Transaction Id <span class="sort-icon" id="sortIcon0"></span></th>
+            <th onclick="sortTable(1)">Date <span class="sort-icon" id="sortIcon1"></span></th>
+            <th onclick="sortTable(2)">Time <span class="sort-icon" id="sortIcon2"></span></th>
+            <th onclick="sortTable(3)">Quantity <span class="sort-icon" id="sortIcon3"></span></th>
+            <th onclick="sortTable(4)">StoreID <span class="sort-icon" id="sortIcon4"></span></th>
+            <th onclick="sortTable(5)">Store Location <span class="sort-icon" id="sortIcon5"></span></th>
+            <th onclick="sortTable(6)">Product ID <span class="sort-icon" id="sortIcon6"></span></th>
+            <th onclick="sortTable(7)">Unit Prize <span class="sort-icon" id="sortIcon7"></span></th>
+            <th onclick="sortTable(8)">Product Category <span class="sort-icon" id="sortIcon8"></span></th>
+            <th onclick="sortTable(9)">Product Type <span class="sort-icon" id="sortIcon9"></span></th>
+            <th onclick="sortTable(10)">Product Detail <span class="sort-icon" id="sortIcon10"></span></th>
           </tr>
         </thead>
         <tbody>
